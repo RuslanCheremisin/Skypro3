@@ -1,22 +1,22 @@
 package com.example.skypro3.model;
 
 import com.example.skypro3.services.ValidateUtil;
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-@Data
+import java.util.List;
+
 public class Recipe {
     private final String recipeName;
     private final int cookingTime;
-    private final ArrayList<Ingredient> ingredientsList;
-    private final LinkedList<String> cookingSteps;
+    private List<Ingredient> ingredientsList;
+    private List<String> cookingSteps;
 
-    public Recipe(String recipeName, int cookingTime) {
+    public Recipe(String recipeName, int cookingTime, List ingredientsList, List cookingSteps) {
         this.recipeName = ValidateUtil.validateString(recipeName);
         this.cookingTime = ValidateUtil.validateInt(cookingTime);
-        this.ingredientsList = new ArrayList<>();
-        this.cookingSteps = new LinkedList<>();
+        this.ingredientsList = ingredientsList;
+        this.cookingSteps = cookingSteps;
     }
 
     public void addIngredient(Ingredient ingredient) {
@@ -31,11 +31,11 @@ public class Recipe {
         return cookingTime;
     }
 
-    public ArrayList<Ingredient> getIngredientsList() {
+    public List<Ingredient> getIngredientsList() {
         return ingredientsList;
     }
 
-    public LinkedList<String> getCookingSteps() {
+    public List<String> getCookingSteps() {
         return cookingSteps;
     }
 

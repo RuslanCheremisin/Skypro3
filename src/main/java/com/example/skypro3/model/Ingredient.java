@@ -1,8 +1,5 @@
 package com.example.skypro3.model;
 
-import lombok.Data;
-
-@Data
 public class Ingredient {
     private final String ingredientName;
     private int ingredientQuantity;
