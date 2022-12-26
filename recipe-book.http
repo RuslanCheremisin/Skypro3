@@ -1,0 +1,37 @@
+###
+POST http://localhost:8080/recipes/addIngredientToCatalogue
+Content-Type: application/json
+
+{
+  "ingredientName": "Potato",
+  "ingredientQuantity" : 4,
+  "measureUnit": "pieces"
+}
+###
+POST http://localhost:8080/recipes/addIngredientToCatalogue
+Content-Type: application/json
+
+{
+"ingredientName": "Tomato",
+"ingredientQuantity" : 300,
+"measureUnit": "gramm"
+}
+
+###
+POST http://localhost:8080/recipes/addRecipeToCatalogue
+Content-Type: application/json
+
+{
+  "recipeName": "Salad",
+  "cookingTime" : 10
+}
+
+###
+GET http://localhost:8080/recipes/getIngredientById/1
+###
+GET http://localhost:8080/recipes/getIngredientById/2
+###
+GET http://localhost:8080/recipes/getRecipeById/1
+
+
+
