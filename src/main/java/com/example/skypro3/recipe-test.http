@@ -1,0 +1,33 @@
+POST http://localhost:8080/recipes
+Content-Type: application/json
+
+{
+"recipeName":"Okroshka",
+"cookingTime":30,
+"ingredientsList":
+[
+{
+"ingredientName": "Potato",
+"ingredientQuantity": 3,
+"measureUnit": "pc"
+},
+{
+"ingredientName": "Kolbasa",
+"ingredientQuantity": 300,
+"measureUnit": "g"
+},
+{
+"ingredientName": "Kvas",
+"ingredientQuantity": 500,
+"measureUnit": "ml"
+}
+],
+"cookingSteps":
+[
+"Porezat'",
+"Pokroshit'",
+"Zalit'"
+]
+}
+###
+GET localhost:8080/recipes
