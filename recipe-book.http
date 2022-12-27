@@ -1,5 +1,5 @@
 ###
-POST http://localhost:8080/recipes/addIngredientToCatalogue
+POST http://localhost:8080/recipes
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
   "measureUnit": "pieces"
 }
 ###
-POST http://localhost:8080/recipes/addIngredientToCatalogue
+POST http://localhost:8080/recipes
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/recipes/addRecipeToCatalogue
+POST http://localhost:8080/recipes
 Content-Type: application/json
 
 {
@@ -27,11 +27,11 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/recipes/getIngredientById/1
+GET http://localhost:8080/recipes/1
 ###
-GET http://localhost:8080/recipes/getIngredientById/2
+GET http://localhost:8080/recipes/2
 ###
-GET http://localhost:8080/recipes/getRecipeById/1
+GET http://localhost:8080/recipes/1
 
 
 
