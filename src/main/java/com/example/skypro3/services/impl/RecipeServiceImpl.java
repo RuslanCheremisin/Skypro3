@@ -40,10 +40,10 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 
-//    @PostConstruct
-//    private void initRecipes(){
-//        readFromFile();
-//    }
+    @PostConstruct
+    private void initRecipes(){
+        readFromFile();
+    }
 
     @Override
     public Recipe editRecipeById(int id, Recipe recipe) {
