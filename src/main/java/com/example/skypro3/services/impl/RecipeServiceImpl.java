@@ -1,62 +1,33 @@
 package com.example.skypro3.services.impl;
 
-import com.example.skypro3.model.Ingredient;
 import com.example.skypro3.model.Recipe;
+import com.example.skypro3.services.FilesService;
 import com.example.skypro3.services.RecipeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private int ingredientId = 0;
     private int recipeId = 0;
-    private final Map<Integer, Ingredient> ingredientsCatalogue = new HashMap<>();
 
-    private final Map<Integer, Recipe> recipeCatalogue = new HashMap<>();
+    private Map<Integer, Recipe> recipeCatalogue = new HashMap<>();
+    private FilesService filesService;
 
-    @Override
-    public int addIngredientToCatalogue(Ingredient ingredient) {
-        ingredientsCatalogue.put(ingredientId, ingredient);
-        return ingredientId++;
+    public RecipeServiceImpl(FilesService filesService) {
+        this.filesService = filesService;
     }
 
-    @Override
-    public Ingredient getIngredientById(int id) {
-        if (ingredientsCatalogue.containsKey(id)) {
-            return ingredientsCatalogue.get(id);
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public Ingredient editIngredient(int id, Ingredient ingredient) {
-        if (ingredientsCatalogue.containsKey(id)) {
-            ingredientsCatalogue.put(id, ingredient);
-            return ingredient;
-        } else {
-            return null;
-        }
-    }
-
-    @Override
-    public boolean deleteIngredient(int id) {
-        if (ingredientsCatalogue.containsKey(id)) {
-            ingredientsCatalogue.remove(id);
-            return true;
-        }
-        return false;
-    }
-    @Override
-    public Map<Integer, Ingredient> getAllIngredients(){
-        return ingredientsCatalogue;
-    }
 
     @Override
     public int addRecipeToCatalogue(Recipe recipe) {
         recipeCatalogue.put(recipeId, recipe);
+        saveToFile();
         return recipeId++;
     }
 
@@ -69,10 +40,16 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 
+//    @PostConstruct
+//    private void initRecipes(){
+//        readFromFile();
+//    }
+
     @Override
     public Recipe editRecipeById(int id, Recipe recipe) {
-        if (recipeCatalogue.containsKey(id)){
+        if (recipeCatalogue.containsKey(id)) {
             recipeCatalogue.put(id, recipe);
+            saveToFile();
             return recipe;
         }
         return null;
@@ -88,7 +65,25 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Map<Integer, Recipe> getAllRecipes(){
+    public Map<Integer, Recipe> getAllRecipes() {
         return recipeCatalogue;
+    }
+
+    private void saveToFile(){
+        try {
+            String json = new ObjectMapper().writeValueAsString(recipeCatalogue);
+            filesService.saveRecipesToFile(json);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void readFromFile(){
+        String json = filesService.readRecipesFromFile();
+        try {
+            recipeCatalogue = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
