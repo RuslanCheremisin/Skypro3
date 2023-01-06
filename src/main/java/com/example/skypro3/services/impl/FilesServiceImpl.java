@@ -8,20 +8,24 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.Format;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Service
 public class FilesServiceImpl implements FilesService {
     @Value("${path.to.ingredients.file}")
     private String ingredientsFilePath;
     @Value("${name.of.ingredients.file}")
-    private String ingredientsFileName; 
+    private String ingredientsFileName;
     @Value("${path.to.recipes.file}")
     private String recipesFilePath;
     @Value("${name.of.recipes.file}")
     private String recipesFileName;
 
     @Override
-    public boolean saveIngredientsToFile(String json){
+    public boolean saveIngredientsToFile(String json) {
         try {
             cleanIngredientsFile();
             Files.writeString(Path.of(ingredientsFilePath, ingredientsFileName), json);
@@ -31,8 +35,9 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
     @Override
-    public String readIngredientsFromFile(){
+    public String readIngredientsFromFile() {
         try {
             return Files.readString(Path.of(ingredientsFilePath, ingredientsFileName));
         } catch (IOException e) {
@@ -40,8 +45,9 @@ public class FilesServiceImpl implements FilesService {
             throw new RuntimeException();
         }
     }
+
     @Override
-    public boolean cleanIngredientsFile(){
+    public boolean cleanIngredientsFile() {
         try {
             Files.deleteIfExists(Path.of(ingredientsFilePath, ingredientsFileName));
             Files.createFile(Path.of(ingredientsFilePath));
@@ -50,12 +56,14 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
     @Override
-    public File getIngredientsFile(){
+    public File getIngredientsFile() {
         return new File(ingredientsFilePath + "/" + ingredientsFileName);
     }
+
     @Override
-    public boolean saveRecipesToFile(String json){
+    public boolean saveRecipesToFile(String json) {
         try {
             cleanRecipesFile();
             Files.writeString(Path.of(recipesFilePath, recipesFileName), json);
@@ -65,8 +73,9 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
     @Override
-    public String readRecipesFromFile(){
+    public String readRecipesFromFile() {
         try {
             return Files.readString(Path.of(recipesFilePath, recipesFileName));
         } catch (IOException e) {
@@ -74,8 +83,9 @@ public class FilesServiceImpl implements FilesService {
             throw new RuntimeException();
         }
     }
+
     @Override
-    public boolean cleanRecipesFile(){
+    public boolean cleanRecipesFile() {
         try {
             Files.deleteIfExists(Path.of(recipesFilePath, recipesFileName));
             Files.createFile(Path.of(recipesFilePath));
@@ -84,9 +94,19 @@ public class FilesServiceImpl implements FilesService {
             return false;
         }
     }
+
     @Override
-    public File getRecipesFile(){
+    public File getRecipesFile() {
         return new File(recipesFilePath + "/" + recipesFileName);
+    }
+    @Override
+    public Path createTempFile() {
+        try {
+            Path path = Files.createTempFile(Path.of(recipesFilePath),"tempFile",""+ LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
+            return path;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

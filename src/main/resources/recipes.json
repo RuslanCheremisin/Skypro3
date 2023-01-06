@@ -1,1 +1,25 @@
-{"0":{"recipeName":"ЙЙЙЙЙЙЙЙЙ","cookingTime":0,"ingredientsList":[{"ingredientName":"string","ingredientQuantity":0,"measureUnit":"string"}],"cookingSteps":["string"]},"1":{"recipeName":"string","cookingTime":0,"ingredientsList":[{"ingredientName":"string","ingredientQuantity":0,"measureUnit":"string"}],"cookingSteps":["string"]},"2":{"recipeName":"string","cookingTime":0,"ingredientsList":[{"ingredientName":"string","ingredientQuantity":0,"measureUnit":"string"}],"cookingSteps":["string"]}}
+{
+  "0":
+  {"recipeName":"борщ","cookingTime":120,"ingredientsList":
+  [{"ingredientName":"Вода","ingredientQuantity":2,"measureUnit":"л"},
+    {"ingredientName":"говядина на кости","ingredientQuantity":500,"measureUnit":"г"},
+    {"ingredientName":"свёкла","ingredientQuantity":2,"measureUnit":"шт."},
+    {"ingredientName":"морковь","ingredientQuantity":1,"measureUnit":"шт."},
+    {"ingredientName":"лук","ingredientQuantity":2,"measureUnit":"шт."},
+    {"ingredientName":"растительное масло","ingredientQuantity":3,"measureUnit":"ст.ложки"},
+    {"ingredientName":"томатная паста","ingredientQuantity":3,"measureUnit":"ст.ложки"},
+    {"ingredientName":"капуста квашеная","ingredientQuantity":300,"measureUnit":"г"},
+    {"ingredientName":"картофель","ingredientQuantity":4,"measureUnit":"шт."},
+    {"ingredientName":"соль","ingredientQuantity":0,"measureUnit":"по вкусу"},
+    {"ingredientName":"лавровый лист","ingredientQuantity":2,"measureUnit":"шт."},
+    {"ingredientName":"зелень","ingredientQuantity":0,"measureUnit":"по вкусу"},
+    {"ingredientName":"чеснок","ingredientQuantity":1,"measureUnit":"зубок"},
+    {"ingredientName":"черный перец","ingredientQuantity":0,"measureUnit":"щепотка"}],
+    "cookingSteps":["Налейте в кастрюлю холодную воду, выложите мясо и поставьте на средний огонь.Бульон будет вкуснее, если использовать именно мясо на кости.",
+    "Следите за бульоном, перед закипанием снимите пену. Когда жидкость закипит, накройте кастрюлю крышкой и варите на медленном огне час-полтора.",
+    "Вымойте и почистите свёклу, морковь и лук. Свёклу натрите на крупной тёрке, а морковь — на средней. Лук нарежьте небольшими кубиками.\nНалейте масло в сковороду, включите средний огонь. Обжаривайте лук и морковь, помешивая, около 5 минут.",
+    "Затем выложите свёклу. Добавьте к ней лимонную кислоту, уксус или сок лимона. Благодаря этому борщ будет по-настоящему красным и приобретёт приятную кислинку.",
+    "Готовьте зажарку ещё 5 минут. После этого добавьте томатную пасту, перемешайте и оставьте на огне ещё на 5–7 минут.",
+    "Когда бульон сварится, выньте из него мясо. Пока оно остывает, засыпьте в кастрюлю нашинкованную капусту. Через 5–10 минут добавьте нарезанный соломкой или кубиками картофель.\nПорядок закладки овощей можно менять. Если капуста молодая, её лучше добавить уже после картошки. Ну или одновременно, если ваш сорт картофеля разваривается быстро.",
+    "Пока варится картофель, отделите мясо от кости и нарежьте кубиками. Верните его в суп. Посолите по вкусу. Добавьте зажарку и перемешайте. Закиньте лавровый лист и мелко порубленную зелень. Накройте кастрюлю крышкой и варите ещё 5–7 минут. Для аромата можно добавить в кастрюлю немного измельчённого чеснока, молотой гвоздики или чёрного перца. Оставьте борщ под крышкой настаиваться 5–10 минут."]}
+}

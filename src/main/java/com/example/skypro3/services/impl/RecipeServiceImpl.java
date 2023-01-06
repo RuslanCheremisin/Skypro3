@@ -1,5 +1,6 @@
 package com.example.skypro3.services.impl;
 
+import com.example.skypro3.model.Ingredient;
 import com.example.skypro3.model.Recipe;
 import com.example.skypro3.services.FilesService;
 import com.example.skypro3.services.RecipeService;
@@ -9,6 +10,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +49,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @PostConstruct
-    private void initRecipes(){
+    private void initRecipes() {
         readFromFile();
     }
 
@@ -70,7 +78,35 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void saveToFile(){
+    public Path getAllRecipesForDownload() {
+        Path path = filesService.createTempFile();
+        for (Recipe recipe : recipeCatalogue.values()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append(recipe.getRecipeName() + "\n" +
+                        "Время приготовления " + recipe.getCookingTime() + " минут." + "\n" +
+                        "Ингредиенты:\n");
+                for (Ingredient ingredient : recipe.getIngredientsList()) {
+                    writer.append(ingredient.getIngredientName()
+                            + " - "
+                            + ingredient.getIngredientQuantity()
+                            + " "
+                            + ingredient.getMeasureUnit()
+                            + "\n");
+                }
+                int i = 1;
+                for (String step : recipe.getCookingSteps()) {
+                    writer.append(i + ". " + step + "\n");
+                    i++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return path;
+    }
+
+    @Override
+    public void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(recipeCatalogue);
             filesService.saveRecipesToFile(json);
@@ -78,11 +114,13 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException(e);
         }
     }
+
     @Override
-    public void readFromFile(){
+    public void readFromFile() {
         String json = filesService.readRecipesFromFile();
         try {
-            recipeCatalogue = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>(){});
+            recipeCatalogue = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
+            });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,7 @@
 package com.example.skypro3.services;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface FilesService {
 
@@ -19,4 +20,6 @@ public interface FilesService {
     boolean cleanRecipesFile();
 
     File getRecipesFile();
+
+    Path createTempFile();
 }
