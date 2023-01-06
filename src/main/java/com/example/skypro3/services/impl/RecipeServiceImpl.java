@@ -69,7 +69,8 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeCatalogue;
     }
 
-    private void saveToFile(){
+    @Override
+    public void saveToFile(){
         try {
             String json = new ObjectMapper().writeValueAsString(recipeCatalogue);
             filesService.saveRecipesToFile(json);
@@ -77,8 +78,8 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException(e);
         }
     }
-
-    private void readFromFile(){
+    @Override
+    public void readFromFile(){
         String json = filesService.readRecipesFromFile();
         try {
             recipeCatalogue = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>(){});
