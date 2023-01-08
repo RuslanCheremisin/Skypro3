@@ -31,14 +31,15 @@ public class FilesController {
 
     @GetMapping("/exportRecipes")
     @Operation(summary = "Здесь вы можете скачать список всех рецептов")
-    public ResponseEntity<InputStreamResource> downloadRecipesCatalogue() {
+    public ResponseEntity<InputStreamResource> downloadRecipesCatalogue() throws FileNotFoundException {
         File file = filesService.getRecipesFile();
-        InputStreamResource resource = null;
+        InputStreamResource resource;
         if (file.exists()) {
             try {
                 resource = new InputStreamResource(new FileInputStream(file));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                throw new FileNotFoundException("Файл отсутствует на сервере");
             }
             return ResponseEntity.ok()
                     .contentLength(file.length())
@@ -62,7 +63,7 @@ public class FilesController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Некорректный формат файла для загрузки");
         }
     }
 
@@ -76,7 +77,7 @@ public class FilesController {
         } catch (FileNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Некорректный формат файла для загрузки");
         }
     }
 
