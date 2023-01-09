@@ -54,7 +54,7 @@ public class FilesController {
 
     @PostMapping(value = "/importRecipes", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Здесь вы можете загрузить свой список рецептов в наше хранилище")
-    public ResponseEntity<Void> uploadRecipeCatalogue(@RequestParam MultipartFile recipesCatalogueFile) {
+    public ResponseEntity<Void> uploadRecipeCatalogue(@RequestParam MultipartFile recipesCatalogueFile) throws IncorrectUploadFileException {
         filesService.cleanRecipesFile();
         try (FileOutputStream fos = new FileOutputStream(filesService.getRecipesFile())) {
             IOUtils.copy(recipesCatalogueFile.getInputStream(), fos);
@@ -63,13 +63,13 @@ public class FilesController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (IOException e) {
-            throw new IllegalArgumentException("Некорректный формат файла для загрузки");
+            throw new IncorrectUploadFileException("Некорректный формат файла для загрузки");
         }
     }
 
     @PostMapping(value = "/importIngredients", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Здесь вы можете загрузить свой список ингредиентов в наше хранилище")
-    public ResponseEntity<Void> uploadIngredientsCatalogue(@RequestParam MultipartFile ingredientsCatalogueFile) {
+    public ResponseEntity<Void> uploadIngredientsCatalogue(@RequestParam MultipartFile ingredientsCatalogueFile) throws IncorrectUploadFileException {
         filesService.cleanIngredientsFile();
         try (FileOutputStream fos = new FileOutputStream(filesService.getIngredientsFile())) {
             IOUtils.copy(ingredientsCatalogueFile.getInputStream(), fos);
@@ -77,7 +77,7 @@ public class FilesController {
         } catch (FileNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (IOException e) {
-            throw new IllegalArgumentException("Некорректный формат файла для загрузки");
+            throw new IncorrectUploadFileException("Некорректный формат файла для загрузки");
         }
 
     }
