@@ -38,10 +38,10 @@ public class IngredientsServiceImpl implements IngredientsService {
             return null;
         }
     }
-//    @PostConstruct
-//    private void initIngredients(){
-//        readIngredientsFromFile();
-//    }
+    @PostConstruct
+    private void initIngredients(){
+        readIngredientsFromFile();
+    }
 
     @Override
     public Ingredient editIngredient(int id, Ingredient ingredient) {
